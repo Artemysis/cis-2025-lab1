@@ -10,14 +10,17 @@ permissions:
   contents: write
   pages: write
   id-token: write
+
 jobs:
   check-lint:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
+
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
@@ -48,13 +51,13 @@ jobs:
           export ALLURE_RESULTS_DIR=${{ github.workspace }}/backend/allure-results
           dotnet test Tests/Tests.csproj
         continue-on-error: true
-      
+
       - name: Download Allure CLI
         run: |
           wget -q https://github.com/allure-framework/allure2/releases/download/2.24.1/allure-2.24.1.tgz
-        tar -zxvf allure-2.24.1.tgz
-        sudo mv allure-2.24.1 /opt/allure
-        sudo ln -sf /opt/allure/bin/allure /usr/local/bin/allure
+          tar -zxvf allure-2.24.1.tgz
+          sudo mv allure-2.24.1 /opt/allure
+          sudo ln -sf /opt/allure/bin/allure /usr/local/bin/allure
 
       - name: Collect all Allure results
         run: |
@@ -77,16 +80,16 @@ jobs:
           path: gh-pages
 
       - name: Upload Allure Report
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: allure-report
-        path: allure-report
-        retention-days: 30
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-report
+          path: allure-report
+          retention-days: 30
 
       - name: Deploy Allure Report to GitHub Pages
-      if: always() && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./allure-history
+        if: always() && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./allure-history
