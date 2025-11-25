@@ -48,11 +48,13 @@ jobs:
           export ALLURE_RESULTS_DIR=${{ github.workspace }}/backend/allure-results
           dotnet test Tests/Tests.csproj
         continue-on-error: true
-
-      - name: Setup Allure CLI
-        uses: simple-elf/allure-report-action@v1.7
-        with:
-          allure-version: 2.24.1
+      
+      -name: Download Allure CLI
+        run: |
+          wget -q https://github.com/allure-framework/allure2/releases/download/2.24.1/allure-2.24.1.tgz
+        tar -zxvf allure-2.24.1.tgz
+        sudo mv allure-2.24.1 /opt/allure
+        sudo ln -sf /opt/allure/bin/allure /usr/local/bin/allure
 
       - name: Collect all Allure results
         run: |
@@ -74,26 +76,19 @@ jobs:
           ref: gh-pages
           path: gh-pages
 
-      - name: Generate Allure Report
-        if: always()
-        run: |
-          if [ -d "gh-pages/history" ]; then
-            cp -r gh-pages/history allure-results/
-          fi
-          allure generate allure-results -o allure-report --clean
-
-      - name: Upload Allure Report as Artifact
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: allure-report
-          path: allure-report
-          retention-days: 30
+      -name: Upload Allure Report
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: allure-report
+        path: allure-report
+        retention-days: 30
 
       - name: Deploy Allure Report to GitHub Pages
-        if: always() && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./allure-report
+      if: always() && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./allure-history
+
   
