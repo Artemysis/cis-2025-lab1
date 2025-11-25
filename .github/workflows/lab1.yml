@@ -77,11 +77,9 @@ jobs:
       - name: Generate Allure Report
         if: always()
         run: |
-          # Копируем историю из gh-pages, если она есть
           if [ -d "gh-pages/history" ]; then
             cp -r gh-pages/history allure-results/
           fi
-          # Генерируем новый отчет
           allure generate allure-results -o allure-report --clean
 
       - name: Upload Allure Report as Artifact
