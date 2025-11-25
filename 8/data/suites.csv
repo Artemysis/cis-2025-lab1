@@ -1,0 +1,7 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","54","Get_ReturnsWeatherForecasts","Backend","Tue Nov 25 06:33:03 UTC 2025","passed","Tue Nov 25 06:33:03 UTC 2025","Controller","WeatherForecast","WeatherForecastControllerTests","Get_ReturnsWeatherForecasts"
+"","0","GetById_ReturnsWeatherForecast","Backend","Tue Nov 25 06:33:04 UTC 2025","passed","Tue Nov 25 06:33:04 UTC 2025","Controller","WeatherForecast","WeatherForecastControllerTestsFixed","GetById_ReturnsWeatherForecast"
+"","132","should increment count when button is clicked","App","Tue Nov 25 06:32:45 UTC 2025","passed","Tue Nov 25 06:32:45 UTC 2025","","","",""
+"","62","GetById_ReturnsWeatherForecast","Backend","Tue Nov 25 06:33:04 UTC 2025","failed","Tue Nov 25 06:33:04 UTC 2025","Controller","WeatherForecast","WeatherForecastControllerTests","GetById_ReturnsWeatherForecast"
+"","0","Get_ReturnsWeatherForecasts","Backend","Tue Nov 25 06:33:04 UTC 2025","passed","Tue Nov 25 06:33:04 UTC 2025","Controller","WeatherForecast","WeatherForecastControllerTestsFixed","Get_ReturnsWeatherForecasts"
+"","27","should render the app","App","Tue Nov 25 06:32:45 UTC 2025","passed","Tue Nov 25 06:32:45 UTC 2025","","","",""
